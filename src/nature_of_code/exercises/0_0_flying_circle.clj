@@ -1,4 +1,4 @@
-(ns nature-of-code.sandbox
+(ns nature-of-code.exercises.0-0-flying-circle
   (:require [quil.core :as q]))
 
 (defn setup []

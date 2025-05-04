@@ -1,4 +1,4 @@
-(ns nature-of-code.sandbox
+(ns nature-of-code.exercises.0-3-mouse-biased-walk
   (:require [quil.core :as q]))
 
 (defn setup []

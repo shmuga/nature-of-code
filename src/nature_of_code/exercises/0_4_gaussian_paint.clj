@@ -1,4 +1,4 @@
-(ns nature-of-code.sandbox
+(ns nature-of-code.exercises.0-4-gaussian-paint
   (:require [quil.core :as q])
   (:require [nature-of-code.utils :as u]))
 
