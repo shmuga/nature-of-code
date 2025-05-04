@@ -1,5 +1,6 @@
 (ns nature-of-code.sandbox
-  (:require [quil.core :as q]))
+  (:require [quil.core :as q])
+  (:require [nature-of-code.utils :as u]))
 
 (defn setup []
   (q/frame-rate 1000)
