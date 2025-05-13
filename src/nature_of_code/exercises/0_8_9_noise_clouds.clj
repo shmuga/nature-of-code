@@ -36,5 +36,6 @@
 
 (defn draw [state]
   (draw-clouds (:zoff state) (:image state))
-  (q/text (str "Counter: " (:counter state)) 10 10))
+  (let [v (m/vec3 10 10 10)]
+    (q/text (str "Counter: " (:counter state)) (:x v) (:y v))))
 

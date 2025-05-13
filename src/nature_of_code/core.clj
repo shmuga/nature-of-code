@@ -18,5 +18,5 @@
   :draw sandbox/draw
   :key-pressed key-pressed
   :size [500 500]
-  :middleware [m/fun-mode])
+  :middleware [m/fun-mode m/pause-on-error])
 
