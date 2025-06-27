@@ -1,6 +1,7 @@
 (ns nature-of-code.sandbox
   (:require [quil.core :as q])
-  (:require [nature-of-code.utils :as u]))
+  (:require [nature-of-code.utils :as u])
+  (:require [mikera.vectorz.core :as v]))
 
 (defn setup []
   (q/frame-rate 1000)
