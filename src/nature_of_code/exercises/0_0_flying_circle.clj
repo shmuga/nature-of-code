@@ -1,5 +1,6 @@
 (ns nature-of-code.exercises.0-0-flying-circle
-  (:require [quil.core :as q]))
+  (:require [quil.core :as q]
+            [quil.middleware :as mm]))
 
 (defn setup []
   ; Set frame rate to 30 frames per second.
@@ -31,3 +32,19 @@
                          (/ (q/height) 2)]
       ; Draw the circle.
       (q/ellipse x y 10 10))))
+
+(defn key-pressed [state event]
+  (case (:key event)
+    :s (do (q/start-loop) (assoc state :running true))
+    :p (do (q/no-loop) (assoc state :running false))
+    :r (setup)
+    state))
+
+(q/defsketch flying-circle
+  :title "0.0 Flying Circle"
+  :setup setup
+  :update update-state
+  :draw draw
+  :key-pressed key-pressed
+  :size [500 500]
+  :middleware [mm/fun-mode mm/pause-on-error])

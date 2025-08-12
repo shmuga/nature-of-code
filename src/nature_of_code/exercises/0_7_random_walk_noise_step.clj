@@ -1,5 +1,6 @@
 (ns nature-of-code.exercises.0-7-random-walk-noise-step
-  (:require [quil.core :as q])
+  (:require [quil.core :as q]
+            [quil.middleware :as mm])
   (:require [nature-of-code.utils :as u]))
 
 (defn setup []
@@ -36,3 +37,19 @@
 
 (defn draw [{:keys [x y prev-x prev-y] :as state}]
     (q/line prev-x prev-y x y))
+
+(defn key-pressed [state event]
+  (case (:key event)
+    :s (do (q/start-loop) (assoc state :running true))
+    :p (do (q/no-loop) (assoc state :running false))
+    :r (setup)
+    state))
+
+(q/defsketch random-walk-noise-step
+  :title "0.7 Random Walk Noise Step"
+  :setup setup
+  :update update-state
+  :draw draw
+  :key-pressed key-pressed
+  :size [500 500]
+  :middleware [mm/fun-mode mm/pause-on-error])

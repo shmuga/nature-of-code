@@ -1,6 +1,8 @@
 (ns nature-of-code.exercises.0-8-9-noise-clouds
-  (:require [quil.core :as q])
-  (:require [nature-of-code.utils :as u]))
+  (:require [quil.core :as q]
+            [quil.middleware :as mm])
+  (:require [nature-of-code.utils :as u])
+  (:require [mikera.vectorz.core :as m]))
 
 (def OCTAVES 7)
 (def FALLOFF 0.5)
@@ -36,6 +38,22 @@
 
 (defn draw [state]
   (draw-clouds (:zoff state) (:image state))
-  (let [v (m/vec3 10 10 10)]
-    (q/text (str "Counter: " (:counter state)) (:x v) (:y v))))
+  (let [v (m/vec2 10 10)]
+    (q/text (str "Counter: " (:counter state)) (u/x v) (u/y v))))
+
+(defn key-pressed [state event]
+  (case (:key event)
+    :s (do (q/start-loop) (assoc state :running true))
+    :p (do (q/no-loop) (assoc state :running false))
+    :r (setup)
+    state))
+
+(q/defsketch noise-clouds
+  :title "0.8.9 Noise Clouds"
+  :setup setup
+  :update update-state
+  :draw draw
+  :key-pressed key-pressed
+  :size [500 500]
+  :middleware [mm/fun-mode mm/pause-on-error])
 

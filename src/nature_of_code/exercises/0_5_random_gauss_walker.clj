@@ -1,5 +1,6 @@
 (ns nature-of-code.exercises.0-5-random-gauss-walker
-  (:require [quil.core :as q])
+  (:require [quil.core :as q]
+            [quil.middleware :as mm])
   (:require [nature-of-code.utils :as u]))
 
 (defn setup []
@@ -26,3 +27,19 @@
   (q/with-translation [(/ (q/width) 2)
                        (/ (q/height) 2)]
     (q/point (:x state) (:y state))))
+
+(defn key-pressed [state event]
+  (case (:key event)
+    :s (do (q/start-loop) (assoc state :running true))
+    :p (do (q/no-loop) (assoc state :running false))
+    :r (setup)
+    state))
+
+(q/defsketch random-gauss-walker
+  :title "0.5 Random Gauss Walker"
+  :setup setup
+  :update update-state
+  :draw draw
+  :key-pressed key-pressed
+  :size [500 500]
+  :middleware [mm/fun-mode mm/pause-on-error])

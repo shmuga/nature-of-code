@@ -1,5 +1,6 @@
 (ns nature-of-code.exercises.0-4-gaussian-paint
-  (:require [quil.core :as q])
+  (:require [quil.core :as q]
+            [quil.middleware :as mm])
   (:require [nature-of-code.utils :as u]))
 
 (def COLOR_BASE 128)
@@ -31,4 +32,20 @@
         y (u/rand-gaus (/ (q/height) 2) SPREAD)]
     (q/fill color1 color2 color3 alpha)
     (q/ellipse x y size size)))
+
+(defn key-pressed [state event]
+  (case (:key event)
+    :s (do (q/start-loop) (assoc state :running true))
+    :p (do (q/no-loop) (assoc state :running false))
+    :r (setup)
+    state))
+
+(q/defsketch gaussian-paint
+  :title "0.4 Gaussian Paint"
+  :setup setup
+  :update update-state
+  :draw draw
+  :key-pressed key-pressed
+  :size [500 500]
+  :middleware [mm/fun-mode mm/pause-on-error])
 

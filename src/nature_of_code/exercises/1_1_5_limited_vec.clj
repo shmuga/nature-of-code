@@ -1,5 +1,6 @@
 (ns nature-of-code.exercises.1-1-5-limited-vec
-  (:require [quil.core :as q])
+  (:require [quil.core :as q]
+            [quil.middleware :as mm])
   (:require [nature-of-code.utils :as u])
   (:require [mikera.vectorz.core :as m]))
 
@@ -29,3 +30,19 @@
   ; (q/print-every-n-millisec 1000 position velocity)
   (q/background 230)
   (q/ellipse (u/x position) (u/y position) 20 20))
+
+(defn key-pressed [state event]
+  (case (:key event)
+    :s (do (q/start-loop) (assoc state :running true))
+    :p (do (q/no-loop) (assoc state :running false))
+    :r (setup)
+    state))
+
+(q/defsketch limited-vec
+  :title "1.1.5 Limited Vector"
+  :setup setup
+  :update update-state
+  :draw draw
+  :key-pressed key-pressed
+  :size [500 500]
+  :middleware [mm/fun-mode mm/pause-on-error])
